@@ -4,3 +4,4 @@
 #variable files
 *.tfvars
 crash.log
+.env
