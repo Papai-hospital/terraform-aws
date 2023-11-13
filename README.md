@@ -41,3 +41,9 @@ sudo service nginx restart
 
 and finally setup nginx to restart
 sudo chkconfig nginx on
+
+# Destroy
+
+terraform plan -destroy
+
+terraform apply -destroy

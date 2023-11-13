@@ -5,3 +5,5 @@
 *.tfvars
 crash.log
 .env
+/ec2files
+/environments/*/.terraform/*
