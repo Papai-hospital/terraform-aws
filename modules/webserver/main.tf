@@ -63,4 +63,6 @@ resource "aws_instance" "papai-app-server" {
   tags = {
     Name = "${var.env_prefix}-server"
   }
+
+  iam_instance_profile = var.iam_id
 }

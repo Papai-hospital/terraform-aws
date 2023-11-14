@@ -17,6 +17,18 @@ module "vpc" {
   }
 }
 
+module "papai-iam" {
+  source      = "../../modules/iam"
+  env_prefix  = var.env_prefix
+  bucket_name = module.papai-s3-profilePic.bucket.id
+}
+
+
+module "papai-s3-profilePic" {
+  source     = "../../modules/s3image"
+  env_prefix = var.env_prefix
+}
+
 module "papai-app-server" {
   source              = "../../modules/webserver"
   vpc_id              = module.vpc.vpc_id
@@ -27,9 +39,5 @@ module "papai-app-server" {
   instance_type       = var.instance_type
   subnet_id           = module.vpc.public_subnets[0]
   avail_zone          = var.avail_zone
-}
-
-module "papai-s3-profilePic" {
-  source     = "../../modules/s3image"
-  env_prefix = var.env_prefix
+  iam_id              = module.papai-iam.iam.id
 }
