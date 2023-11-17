@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "profilePic" {
   tags = {
     Name = "${var.env_prefix}-image-bucket"
   }
-  force_destroy = true //use this in dev only
+  force_destroy = var.env_prefix == "prod" ? false : true //use this in dev only
 }
 
 //ACCESS-CONTROL
@@ -17,21 +17,21 @@ resource "aws_s3_bucket_ownership_controls" "profilePic" {
 resource "aws_s3_bucket_public_access_block" "profilePic" {
   bucket = aws_s3_bucket.profilePic.id
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls   = false
+  block_public_policy = false
+  ignore_public_acls  = false
   # restrict_public_buckets = false
 }
 
-# resource "aws_s3_bucket_acl" "profilePic" {
-#   depends_on = [
-#     aws_s3_bucket_ownership_controls.profilePic,
-#     aws_s3_bucket_public_access_block.profilePic,
-#   ]
+resource "aws_s3_bucket_acl" "profilePic" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.profilePic,
+    aws_s3_bucket_public_access_block.profilePic,
+  ]
 
-#   bucket = aws_s3_bucket.profilePic.id
-#   acl    = "public-read"
-# }
+  bucket = aws_s3_bucket.profilePic.id
+  acl    = "public-read"
+}
 
 //CORS
 resource "aws_s3_bucket_cors_configuration" "profilePic" {
