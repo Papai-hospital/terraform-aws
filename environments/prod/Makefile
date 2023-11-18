@@ -1,3 +1,4 @@
+-include .env
 init:
 	terraform init
 plan:
@@ -11,3 +12,5 @@ output:
 dont-use-this:
 	terraform apply -auto-approve
 	terraform output > .env
+ec2login:
+	ssh ec2-user@${EC2_HOST}
