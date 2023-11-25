@@ -7,18 +7,26 @@ resource "aws_iam_policy" "bucket-policy" {
     "Version" : "2012-10-17",
     "Statement" : [
       {
+        "Action" : [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource" : "arn:aws:logs:*:*:*",
+        "Effect" : "Allow"
+      },
+      {
         "Sid" : "VisualEditor0",
         "Effect" : "Allow",
         "Action" : [
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:ListBucket",
-          "s3:DeleteObject"
+          # "s3:PutObject",
+          # "s3:GetObject",
+          # "s3:ListBucket",
+          # "s3:DeleteObject"
+          "s3:*"
         ],
-        "Resource" : [
-          "arn:aws:s3:::*",
-          "arn:aws:s3:::*/*",
-          # "arn:aws:s3:::${var.bucket_name}"
+        "Resource" : ["arn:aws:s3:::${var.bucket_name}/*"
+          # "arn:aws:s3:::${var.bucket_name}",
         ]
       }
     ]

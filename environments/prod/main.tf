@@ -18,9 +18,10 @@ module "vpc" {
 }
 
 module "papai-iam" {
-  source      = "../../modules/iam"
-  env_prefix  = var.env_prefix
-  bucket_name = module.papai-s3-profilePic.bucket.id
+  source     = "../../modules/iam"
+  env_prefix = var.env_prefix
+  # bucket_name = module.papai-s3-profilePic.bucket.id
+  bucket_name = module.papai-s3-profilePic.bucket.bucket
 }
 
 

@@ -3,7 +3,8 @@ resource "aws_s3_bucket" "profilePic" {
   tags = {
     Name = "${var.env_prefix}-image-bucket"
   }
-  force_destroy = var.env_prefix == "prod" ? false : true //use this in dev only
+  # force_destroy = var.env_prefix == "prod" ? false : true //use this in dev only
+  force_destroy = true //use this in dev only
 }
 
 //ACCESS-CONTROL
@@ -45,5 +46,3 @@ resource "aws_s3_bucket_cors_configuration" "profilePic" {
     max_age_seconds = "86400"
   }
 }
-
-
